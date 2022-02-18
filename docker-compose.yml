@@ -1,19 +1,35 @@
-version: "3.3"
 services:
+
+  database:
+    image: mysql
+    command:
+      --default-authentication-plugin=mysql_native_password
+    volumes:
+      - database:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    environment:
+      - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}"
+      - "MYSQL_DATABASE=${MYSQL_DATABASE}"
+      - "MYSQL_USER=${MYSQL_USER}"
+      - "MYSQL_PASSWORD=${MYSQL_PASSWORD}"
+
   api:
+    depends_on:
+      - database
     build:
       context: ./
       dockerfile: Dockerfile
     environment:
-      - "SPRING_PROFILES_ACTIVE=local"
+      - "SPRING_PROFILES_ACTIVE=$REALM_WB"
     volumes:
       - ./:/weedbuddy-api
-      - ./.m2:/root/.m2
+      - ./.m2:/weedbuddy-api/.m2
     working_dir: /weedbuddy-api
     command: sh run.sh
     ports:
-      - "8080:8080"
+      - "8080:80"
       - "5005:5005"
 
+volumes:
   database:
-      image: mysql

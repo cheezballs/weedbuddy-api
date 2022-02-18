@@ -31,7 +31,7 @@ create table media_image (
     parent_type     char(2) not null,
     user_created    int not null,
     date_created    datetime not null,
-    foreign key (user_created) references (wb_user.id)
+    foreign key (user_created) references wb_user(id)
 );
 
 create table strain (
@@ -41,7 +41,7 @@ create table strain (
     flower_type     char(2) not null,
     user_created    int not null,
     date_created    datetime not null,
-    foreign key (user_created) references (wb_user.id)
+    foreign key (user_created) references wb_user(id)
 );
 
 create table terpene (
@@ -53,15 +53,15 @@ create table terpene (
 create table terpene_effect (
     terpene         int not null,
     effect          char(2) not null,
-    foreign key (terpene) references (terpene.id)
+    foreign key (terpene) references terpene(id)
 );
 
 create table strain_terpene (
     strain          int not null,
     terpene         int not null,
     order_index     int not null,
-    foreign key (strain) references (strain.id),
-    foreign key (terpene) references (terpene.id)
+    foreign key (strain) references strain(id),
+    foreign key (terpene) references terpene(id)
 );
 
 create table purchase (
@@ -70,8 +70,8 @@ create table purchase (
     purchase_date   date,
     user_created    int not null,
     date_created    datetime not null,
-    foreign key (dispensary) references (dispensary.id),
-    foreign key (user_created) references (wb_user.id)
+    foreign key (dispensary) references dispensary(id),
+    foreign key (user_created) references wb_user(id)
 )
 
 create table purchase_item (
@@ -82,6 +82,6 @@ create table purchase_item (
     cbd_value       int,
     size            char(2) not null,
     brand           int not null,
-    foreign key (brand) references (brand.id),
+    foreign key (brand) references brand(id)
 )
 

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "terpene")
@@ -18,7 +19,6 @@ public class Terpene {
 	@Getter
 	private Long id;
 
-
 	@Column(name = "name", columnDefinition = "name", length = 50, nullable = false)
 	@Getter
 	@Setter
@@ -28,6 +28,9 @@ public class Terpene {
 	@Getter
 	@Setter
 	private String description;
+
+	@ManyToMany
+	private Set<Strain> strains;
 
 	public Terpene() {
 

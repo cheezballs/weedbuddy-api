@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.WhereJoinTable;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "dispensary")
@@ -17,7 +19,6 @@ public class Dispensary {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter
 	private Long id;
-
 
 	@Column(name = "name", columnDefinition = "varchar", length = 100, nullable = false)
 	@Getter
@@ -43,6 +44,13 @@ public class Dispensary {
 	@Getter
 	@Setter
 	private String gpsCoordinates;
+
+	@OneToMany
+	@WhereJoinTable(clause = "parent_type='DI'")
+	@JoinColumn(name = "parent")
+	@Getter
+	@Setter
+	private Set<MediaImage> images;
 
 	public Dispensary() {
 

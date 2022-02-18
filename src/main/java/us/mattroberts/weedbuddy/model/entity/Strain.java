@@ -7,18 +7,17 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
-@Table(name = "media_image")
+@Table(name = "strain")
 @Builder
 @AllArgsConstructor
 public class Strain {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter
 	private Long id;
-
 
 	@Column(name = "name", columnDefinition = "varchar", length = 250, nullable = false)
 	@Getter
@@ -44,6 +43,9 @@ public class Strain {
 	@Getter
 	@Setter
 	private Date dateCreated;
+
+	@ManyToMany
+	private Set<Terpene> terpenes;
 
 	public Strain() {
 

@@ -31,7 +31,6 @@ public class StrainController extends BaseController {
 
 	@PostMapping("create")
 	public ResponseEntity<Strain> createStrain(@Valid @RequestBody StrainInput input, Principal principal) {
-
 		Strain strain = StrainMapper.mapFromInput(input);
 		strain.setDateCreated(new Date());
 		strain.setUserCreated(getCurrentUserId(principal));
